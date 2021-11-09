@@ -1,0 +1,35 @@
+<%= form_with(model: bank) do |form| %>
+  <% if bank.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bank.errors.count, "error") %> prohibited this bank from being saved:</h2>
+
+      <ul>
+        <% bank.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <h2>Sucursales</h2>
+  <%= form.fields_for :bank_subsidiaries do |subsidiary| %>
+  <div class="bank_subsidiaries_fields">
+    <div class="fields">
+      <%= subsidiary.label :address, "Direccion" %><br>
+      <%= subsidiary.text_field :address %>
+
+      <%= subsidiary.check_box :_destroy %>
+      <%= subsidiary.label :_destroy, "Borrar" %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
